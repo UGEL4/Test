@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.OrderDao">
+
+    <resultMap id="OrderItems" type="Order">
+        <id property="o_id" column="o_id"></id>
+        <result property="o_totalprice" column="o_totalprice"></result>
+        <collection property="orderItem" ofType="OrderItem">
+            <id property="o_item_id" column="o_item_id"></id>
+            <result property="o_id" column="o_id"></result>
+            <result property="p_id" column="p_id"></result>
+            <result property="o_item_count" column="o_item_count"></result>
+        </collection>
+    </resultMap>
+    <select id="findAllOrder" resultMap="OrderItems">
+        select * from s_order o left join s_order_item oi on o.o_id=oi.o_id
+    </select>
+</mapper>
